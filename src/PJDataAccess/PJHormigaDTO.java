@@ -1,51 +1,51 @@
 package PJDataAccess;
 
 public class PJHormigaDTO {
-    private int secuencial;
-    private String tipoHormiga;
-    private String ubicacion;
-    private String sexo;
-    private String ingestaNativa;
-    private String genoAlimento;
-    private String estado;
+    private int pjsecuencial;
+    private String pjtipoHormiga;
+    private String pjubicacion;
+    private String pjsexo;
+    private String pjingestaNativa;
+    private String pjgenoAlimento;
+    private String pjestado;
 
     // Constructor
-    public PJHormigaDTO(int secuencial, String tipoHormiga, String ubicacion, String sexo, 
-                      String ingestaNativa, String genoAlimento, String estado) {
-        this.secuencial = secuencial;
-        this.tipoHormiga = tipoHormiga;
-        this.ubicacion = ubicacion;
-        this.sexo = sexo;
-        this.ingestaNativa = ingestaNativa;
-        this.genoAlimento = genoAlimento;
-        this.estado = estado;
+    public PJHormigaDTO(int pjsecuencial, String pjtipoHormiga, String pjubicacion, String pjsexo, 
+                      String pjingestaNativa, String pjgenoAlimento, String pjestado) {
+        this.pjsecuencial = pjsecuencial;
+        this.pjtipoHormiga = pjtipoHormiga;
+        this.pjubicacion = pjubicacion;
+        this.pjsexo = pjsexo;
+        this.pjingestaNativa = pjingestaNativa;
+        this.pjgenoAlimento = pjgenoAlimento;
+        this.pjestado = pjestado;
     }
 
     // Getters y Setters
-    public int getSecuencial() { return secuencial; }
-    public void setSecuencial(int secuencial) { this.secuencial = secuencial; }
+    public int getpjSecuencial() { return pjsecuencial; }
+    public void setpjSecuencial(int pjsecuencial) { this.pjsecuencial = pjsecuencial; }
 
-    public String getTipoHormiga() { return tipoHormiga; }
-    public void setTipoHormiga(String tipoHormiga) { this.tipoHormiga = tipoHormiga; }
+    public String getpjTipoHormiga() { return pjtipoHormiga; }
+    public void setpjTipoHormiga(String pjtipoHormiga) { this.pjtipoHormiga = pjtipoHormiga; }
 
-    public String getUbicacion() { return ubicacion; }
-    public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
+    public String getpjUbicacion() { return pjubicacion; }
+    public void setpjUbicacion(String pjubicacion) { this.pjubicacion = pjubicacion; }
 
-    public String getSexo() { return sexo; }
-    public void setSexo(String sexo) { this.sexo = sexo; }
+    public String getpjSexo() { return pjsexo; }
+    public void setpjSexo(String pjsexo) { this.pjsexo = pjsexo; }
 
-    public String getIngestaNativa() { return ingestaNativa; }
-    public void setIngestaNativa(String ingestaNativa) { this.ingestaNativa = ingestaNativa; }
+    public String getpjIngestaNativa() { return pjingestaNativa; }
+    public void setpjIngestaNativa(String pjingestaNativa) { this.pjingestaNativa = pjingestaNativa; }
 
-    public String getGenoAlimento() { return genoAlimento; }
-    public void setGenoAlimento(String genoAlimento) { this.genoAlimento = genoAlimento; }
+    public String getpjGenoAlimento() { return pjgenoAlimento; }
+    public void setpjGenoAlimento(String pjgenoAlimento) { this.pjgenoAlimento = pjgenoAlimento; }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public String getpjEstado() { return pjestado; }
+    public void setpjEstado(String pjestado) { this.pjestado = pjestado; }
 
     @Override
     public String toString() {
-        return secuencial + "\t" + tipoHormiga + "\t" + ubicacion + "\t" + sexo + "\t" + 
-               ingestaNativa + "\t" + genoAlimento + "\t" + estado;
+        return pjsecuencial + "\t" + pjtipoHormiga + "\t" + pjubicacion + "\t" + pjsexo + "\t" + 
+               pjingestaNativa + "\t" + pjgenoAlimento + "\t" + pjestado;
     }
 }

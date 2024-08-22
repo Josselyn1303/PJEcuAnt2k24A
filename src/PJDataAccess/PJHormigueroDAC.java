@@ -1,15 +1,28 @@
-package PJDataAccess;
+/*package PJDataAccess;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PJHormigaDAO {
+public class PJHormigueroDAC {
+    int Id;
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 
     private static final String FILE_PATH = "Data\\PJhormiguero.csv";
 
-    // Leer todos los registros del archivo
-    public static List<PJHormigaDTO> readAll() {
+    public static List<Hormiga> readAll() {
         List<PJHormigaDTO> hormigas = new ArrayList<>();
         File file = new File(FILE_PATH);
 
@@ -37,8 +50,7 @@ public class PJHormigaDAO {
         return hormigas;
     }
 
-    // Escribir un nuevo registro en el archivo
-    public void pjsave(PJHormigaDTO hormiga) {
+    public void save(PJHormigaDTO hormiga) {
         File file = new File(FILE_PATH);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
@@ -49,30 +61,6 @@ public class PJHormigaDAO {
             // Manejar la excepción adecuadamente
         }
     }
-
-    // Obtener el último número secuencial del archivo
-    public int pjgetLastSecuencial() {
-        int lastSecuencial = 0;
-        File file = new File(FILE_PATH);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("\t");
-                if (parts.length > 0) {
-                    try {
-                        lastSecuencial = Integer.parseInt(parts[0]);
-                    } catch (NumberFormatException e) {
-                        // Manejar el caso donde la línea no comienza con un número
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Manejar la excepción adecuadamente
-        }
-
-        return lastSecuencial;
-    }
+    
 }
+*/

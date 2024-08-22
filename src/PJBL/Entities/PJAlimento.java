@@ -1,4 +1,4 @@
-package PJBusinessLogic;
+package PJBL.Entities;
 
 public abstract class PJAlimento {
     protected String PJtipo;
@@ -9,3 +9,4 @@ public abstract class PJAlimento {
         return PJtipo.toUpperCase();
     }
 }
+

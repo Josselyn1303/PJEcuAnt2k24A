@@ -1,7 +1,7 @@
-package PJBusinessLogic;
+package PJBL.Entities;
 
 public class PJXY extends PJGenoAlimento{
     public PJXY(){
-        PJtipo = "XY";
+        super("XY");
     }
 }

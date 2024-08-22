@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Random;
 
 public class PJForm extends JFrame {
 
@@ -28,6 +27,7 @@ public class PJForm extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
+        // Panel superior con imagen y título
         JPanel PJtopPanel = new JPanel(new BorderLayout());
         JLabel PJimgLabel = new JLabel(new ImageIcon("src\\PJUserInterface\\PJResource\\PJHormiga2.png"));
         JLabel PJtitleLabel = new JLabel("Hormiguero Virtual", SwingConstants.CENTER);
@@ -36,7 +36,7 @@ public class PJForm extends JFrame {
         PJtopPanel.add(PJtitleLabel, BorderLayout.SOUTH);
 
         // Tabla
-        String[] PJcolumnNames = {"RegisNro", "TipoHormiga", "Ubicación", "Sexo", "IngestaNativa", "GenoAlimento", "Estado"};
+        String[] PJcolumnNames = {"RegisNro", "TipoHormiga", "Sexo", "IngestaNativa", "GenoAlimento", "Estado"};
         PJmodeloTabla = new DefaultTableModel(PJcolumnNames, 0);
         PJtabla = new JTable(PJmodeloTabla);
         JScrollPane PJscrollPane = new JScrollPane(PJtabla);
@@ -91,14 +91,14 @@ public class PJForm extends JFrame {
 
         // Acciones de botones
         PJcreateButton.addActionListener(e -> PJcrearHormigaLarva());
-        PJfeedButton.addActionListener(e -> PJalimentarConGenoAlimento());
+        PJfeedButton.addActionListener(e -> PJalimentarHormiga());
         PJdeleteButton.addActionListener(e -> PJeliminarRegistro());
         PJsaveButton.addActionListener(e -> PJguardarEnArchivo());
 
         setVisible(true);
     }
     private void PJguardarEnArchivo() {
-        File file = new File("Data\\PJHormigueroVirtual.txt");
+        File file = new File("Data\\PJhormiguero.csv");
         try {
             // Asegurarse de que el archivo existe
             if (!file.exists()) {
@@ -120,10 +120,10 @@ public class PJForm extends JFrame {
                         }
                     }
                     writer.write(line.toString());
-                    writer.newLine(); 
+                    writer.newLine(); // Nueva línea para el siguiente registro
                 }
             }
-            JOptionPane.showMessageDialog(this, "Datos guardados exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "HORMIGUERO respaldado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,27 +131,21 @@ public class PJForm extends JFrame {
         }
     }
     private void PJcrearHormigaLarva() {
-    int PJopcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de crear una Hormiga larva?", "Confirmación", JOptionPane.YES_NO_OPTION);
-    if (PJopcion == JOptionPane.YES_OPTION) {
-        String[] PJprovincias = {"Azuay", "Bolívar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro", "Esmeraldas", "Galápagos",
-                "Guayas", "Imbabura", "Loja", "Los Ríos", "Manabí", "Morona Santiago", "Napo", "Orellana", "Pastaza",
-                "Pichincha", "Santa Elena", "Santo Domingo de los Tsáchilas", "Sucumbíos", "Tungurahua", "Zamora Chinchipe"};
-        Random PJrandom = new Random();
-        String PJubicacion = PJprovincias[PJrandom.nextInt(PJprovincias.length)];
-        String PJhormiga = "larva";
-        String PJsexo = "Asexual";
-        String PJestado = "VIVA";
-
-        Object[] PJnuevoRegistro = {PJultimoSecuencial, PJhormiga, PJubicacion, PJsexo, null, null, PJestado};
-        PJagregarRegistroATabla(PJnuevoRegistro);
-
-    }
-    PJultimoSecuencial++;
+        int PJopcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de crear una Hormiga larva?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (PJopcion == JOptionPane.YES_OPTION) {
+            String PJhormiga = "larva";
+            String PJsexo = "Asexual";
+            String PJestado = "VIVA";
+            Object[] PJnuevoRegistro = {PJultimoSecuencial, PJhormiga, PJsexo, null, null, PJestado};
+            PJagregarRegistroATabla(PJnuevoRegistro);
+            PJultimoSecuencial++;
+            JOptionPane.showMessageDialog(this, "HORMIGA LARVA, agregada al hormiguero", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private int PJobtenerNuevoSecuencial() {
         int secuencial = 0; // Valor predeterminado en caso de archivo vacío
-        File file = new File("Data\\PJHormigueroVirtual.txt");
+        File file = new File("Data\\PJhormiguero.csv");
         try {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
@@ -181,22 +175,64 @@ public class PJForm extends JFrame {
         PJmodeloTabla.addRow(PJregistro);
     }
 
-    private void PJalimentarConGenoAlimento() {
-        int PJfilaSeleccionada = PJtabla.getSelectedRow();
-        if (PJfilaSeleccionada >= 0) {
-            String PJgenoAlimentoSeleccionado = (String) ((JComboBox<String>) PJcomboButtonPanel.getComponent(0)).getSelectedItem();
-            String PJestado = (String) PJmodeloTabla.getValueAt(PJfilaSeleccionada, 6);
-
-            if ("XY".equals(PJgenoAlimentoSeleccionado) && "VIVA".equals(PJestado)) {
-                PJmodeloTabla.setValueAt("Zángano", PJfilaSeleccionada, 1);
-                PJmodeloTabla.setValueAt("Macho", PJfilaSeleccionada, 3);
-                PJmodeloTabla.setValueAt(PJgenoAlimentoSeleccionado, PJfilaSeleccionada, 5);
+    private void PJalimentarHormiga() {
+        try {
+            int PJfilaSeleccionada = PJtabla.getSelectedRow();
+            if (PJfilaSeleccionada >= 0) {
+                // Obtener los JComboBox desde PJcomboButtonPanel
+                JComboBox<String> ingestaCombo = (JComboBox<String>) ((JPanel) PJcomboButtonPanel.getComponent(0)).getComponent(1);
+                JComboBox<String> genoCombo = (JComboBox<String>) ((JPanel) PJcomboButtonPanel.getComponent(0)).getComponent(0);
+    
+                String PJtipoHormiga = (String) PJmodeloTabla.getValueAt(PJfilaSeleccionada, 1);
+                String PJingestaNativa = (String) ingestaCombo.getSelectedItem();
+                String PJgenoAlimentoSeleccionado = (String) genoCombo.getSelectedItem();
+                String PJestado = (String) PJmodeloTabla.getValueAt(PJfilaSeleccionada, 5);
+    
+                boolean alimentada = false;
+    
+                // Verificar y actualizar el estado de la hormiga
+                if ("larva".equals(PJtipoHormiga)) {
+                    if ("Nectarívoros".equals(PJingestaNativa)) {
+                        // La larva sigue viva si se alimenta con Nectarívoros
+                        PJestado = "VIVA";
+                        alimentada = true;
+                    } else if (("Omnívoro".equals(PJingestaNativa) || "Herbívoro".equals(PJingestaNativa) || "Carnívoro".equals(PJingestaNativa)) && "XY".equals(PJgenoAlimentoSeleccionado)) {
+                        // La larva evoluciona a Zángano si se alimenta con Omnívoro, Herbívoro o Carnívoro y GenoAlimento es XY
+                        PJtipoHormiga = "Zángano";
+                        PJestado = "VIVA"; // Se mantiene viva después de la evolución
+                        PJmodeloTabla.setValueAt("Macho", PJfilaSeleccionada, 2); // Actualizar sexo a Macho
+                        alimentada = true;
+                    } else {
+                        // La larva muere si no se cumplen las condiciones anteriores
+                        PJestado = "Muerta";
+                    }
+                } else {
+                    // Si la hormiga no es larva, no se permite la alimentación
+                    PJestado = "Muerta";
+                }
+    
+                // Actualizar los valores en la grilla
+                PJmodeloTabla.setValueAt(PJestado, PJfilaSeleccionada, 5); // Actualizar estado
+                PJmodeloTabla.setValueAt(PJtipoHormiga, PJfilaSeleccionada, 1); // Actualizar tipo de hormiga
+                PJmodeloTabla.setValueAt(PJgenoAlimentoSeleccionado, PJfilaSeleccionada, 4); // Inyectar GenoAlimento
+                PJmodeloTabla.setValueAt(PJingestaNativa, PJfilaSeleccionada, 3); // Actualizar Ingesta Nativa
+    
+                // Mostrar mensaje de confirmación
+                if (alimentada) {
+                    JOptionPane.showMessageDialog(this, PJtipoHormiga + ", alimentada", "Alimentación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ups ...! tenemos problema con la alimentación de la " + PJtipoHormiga, "Error en la Alimentación", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila en la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila en la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception ex) {
+            // Manejo de excepciones genéricas
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     private void PJeliminarRegistro() {
         int PJfilaSeleccionada = PJtabla.getSelectedRow();
         if (PJfilaSeleccionada >= 0) {
