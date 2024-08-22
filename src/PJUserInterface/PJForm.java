@@ -30,7 +30,7 @@ public class PJForm extends JFrame {
 
         // Panel superior con imagen y título
         JPanel PJtopPanel = new JPanel(new BorderLayout());
-        JLabel PJimgLabel = new JLabel(new ImageIcon("src\\PJUserInterface\\PJResource\\Hormiga.png"));
+        JLabel PJimgLabel = new JLabel(new ImageIcon("src\\PJUserInterface\\PJResource\\PJHormiga2.png"));
         JLabel PJtitleLabel = new JLabel("Hormiguero Virtual", SwingConstants.CENTER);
         PJtitleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         PJtopPanel.add(PJimgLabel, BorderLayout.NORTH);
@@ -99,7 +99,7 @@ public class PJForm extends JFrame {
         setVisible(true);
     }
     private void PJguardarEnArchivo() {
-        File file = new File("PJEcuAnt2k24A\\Data\\PJHormigueroVirtual.txt");
+        File file = new File("Data\\PJHormigueroVirtual.txt");
         try {
             // Asegurarse de que el archivo existe
             if (!file.exists()) {
@@ -152,7 +152,7 @@ public class PJForm extends JFrame {
 
     private int PJobtenerNuevoSecuencial() {
         int secuencial = 0; // Valor predeterminado en caso de archivo vacío
-        File file = new File("PJEcuAnt2k24A\\Data\\PJHormigueroVirtual.txt");
+        File file = new File("Data\\PJHormigueroVirtual.txt");
         try {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
