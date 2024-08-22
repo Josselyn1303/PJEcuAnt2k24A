@@ -28,7 +28,6 @@ public class PJForm extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Panel superior con imagen y título
         JPanel PJtopPanel = new JPanel(new BorderLayout());
         JLabel PJimgLabel = new JLabel(new ImageIcon("src\\PJUserInterface\\PJResource\\PJHormiga2.png"));
         JLabel PJtitleLabel = new JLabel("Hormiguero Virtual", SwingConstants.CENTER);
@@ -121,7 +120,7 @@ public class PJForm extends JFrame {
                         }
                     }
                     writer.write(line.toString());
-                    writer.newLine(); // Nueva línea para el siguiente registro
+                    writer.newLine(); 
                 }
             }
             JOptionPane.showMessageDialog(this, "Datos guardados exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
